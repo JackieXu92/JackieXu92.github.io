@@ -79,6 +79,7 @@ a:hover {
 }
 #random-index a {
   padding: 5px;
+  line-height: 2;
 }
 #random-index .title {
   font-size: 28px;
