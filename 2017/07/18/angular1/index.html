@@ -1,0 +1,336 @@
+
+
+
+
+
+
+
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta http-equiv="Content-Type" content="text/html" charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+  <meta name="author" content="Jackie Xu">
+  
+  
+  <meta name="keywords" content="前端,开发者,程序媛,javascript,html5,Developer,Programmer,Coder,Geek,html,css,css3">
+  
+  
+  
+    <meta name="description" content="概述
+   $watch用于监听模型变化，当你的模型部分发生变化时它会通知你。    $watch(watchExpression, listener, objectEquality);    $watchCollection(watchExpression, listener);   参数的说明：    watchExpression：监听的对象，它可以是一个angular表达式如’nam...">
+  
+  <title>angularJs中$watch、$watchCollection的区别 [ Jackie Xu ]</title>
+  
+  
+    <link rel="shortcut icon" href="/favicon.ico">
+  
+  
+  <link rel="stylesheet" href="/css/random.css">
+<link rel="stylesheet" href="/css/vegas.min.css">
+<link rel="stylesheet" href="/css/highlight-railscasts.css">
+<link rel="stylesheet" href="/css/jquery.fancybox.css">
+<link rel="stylesheet" href="/css/iconfont/iconfont.css">
+<link rel="stylesheet" href="/css/jquery.fancybox-thumbs.css">
+<link rel="stylesheet" href="/css/plyr.css">
+  
+</head>
+
+<body>
+<div class="side-navigate hide-area">
+  
+  
+</div>
+<div id="outer-container" class="hide-area">
+<div id="container">
+  <div id="menu-outer" class="slide-down">
+    <div id="menu-inner">
+      <div id="brand">
+        
+        <a onClick="openUserCard()">
+          <img id="avatar" src="http://oriwxj5ce.bkt.clouddn.com/1BD4199E0531C151DDEC75722E3726CB.png"/>
+          <div id="homelink">Jackie Xu</div>
+        </a>
+      </div>
+      <div id="menu-list">
+        <ul>
+        
+        
+          
+            <li>
+          
+            <a href="/index.html">主页</a>
+            
+          </li>
+        
+          
+            <li>
+          
+            <a href="/archives">菜单</a>
+            
+          </li>
+        
+          
+            <li>
+          
+            <a href="/tags">标签</a>
+            
+          </li>
+        
+          
+            <li>
+          
+            <a href="/categories">分类</a>
+            
+          </li>
+        
+          
+            <li>
+          
+            <a href="/about">简历</a>
+            
+          </li>
+        
+        </ul>
+      </div>
+      <div id="show-menu">
+        <button>Menu</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="content-outer">
+    <div id="content-inner">
+      
+      
+  <article id="post">
+    <h1>angularJs中$watch、$watchCollection的区别</h1>
+    <p class="page-title-sub">
+      <span id = "post-title-date">撰写于 2017-07-18</span>
+      
+        <span id = "post-title-updated">修改于 2017-07-19</span>
+      
+      
+      <span id = "post-title-categories">分类
+      
+      
+        
+        
+        <a href="/categories/angularJs1-0/">angularJs1.0</a>
+      
+      </span>
+      
+      
+      <span id = "post-title-tags">
+      标签
+      
+      
+        
+        
+        <a href="/tags/angularJs1-0/">angularJs1.0</a>
+      
+        
+          /
+        
+        
+        <a href="/tags/watch-watchCollection-区别/">$watch - $watchCollection - 区别</a>
+      
+      </span>
+      
+    </p>
+    
+    <h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><blockquote>
+<p>   $watch用于监听模型变化，当你的模型部分发生变化时它会通知你。<br>    $watch(watchExpression, listener, objectEquality);<br>    $watchCollection(watchExpression, listener);<br>   <strong>参数的说明：</strong><br>    watchExpression：监听的对象，它可以是一个angular表达式如’name’,或函数如function(){return $scope.name}。<br>    listener:当watchExpression变化时会被调用的函数或者表达式,它接收3个参数：newValue(新值), oldValue(旧值), scope(作用域的引用)<br>    objectEquality：是否深度监听，如果设置为true,它告诉Angular检查所监控的对象中每一个属性的变化. 如果你希望监控数组的个别元素或者对象的属性而不是一个普通的值, 那么应该设置为true(默认为false)</p>
+</blockquote>
+<h2 id="区别"><a href="#区别" class="headerlink" title="区别"></a>区别</h2><ul>
+<li>$watch() 会被触发的条件:<ul>
+<li>改变数组的value属性值，$watch()不会作出反应，但如果在数组上push或pop一个元素，$watch()就会执行回调方法。<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">$scope.arr = [];</div><div class="line">$scope.arr = null;</div><div class="line">$scope.arr = someOtherArray;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><p>$watchCollection() 会被$watch()的触发条件和以下几种情况触发:</p>
+<ul>
+<li>针对数组（集合）进行监视，它的性能介于上两种方式之间，即它不会对数组中的每一项的属性进行监视，但可以对数组的项目增减作出反应。即改变数组的value属性值<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">$scope.arr.push(&#123;&#125;); // add element</div><div class="line">$scope.arr.splice(0, 1); // remove element</div><div class="line">$scope.arr[0] = &#123;&#125;; // assign index to different value</div></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>$watch(…, true) 会被以上所有条件和以下条件触发:<br>  -需要遍历整个监视对象，然后在每次$degist之前使用angular.copy()将整个对象深复制一遍，然后在运行之后用angular.equal()将前后的对象进行对比。因而性能消耗严重。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$scope.arr[0].someProperty = &quot;someValue&quot;;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h4 id="举个例子：链接"><a href="#举个例子：链接" class="headerlink" title="举个例子：链接"></a>举个例子：<a href="http://jsfiddle.net/wDwrF/28/" target="_blank" rel="external">链接</a></h4><blockquote>
+<p>html<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">&lt;div ng-app=&apos;myApp&apos;&gt;</div><div class="line">  &lt;div ng-controller=&apos;watchController&apos;&gt;</div><div class="line">    &lt;button ng-click=&apos;changeDeep()&apos;&gt;triggered&lt;/button&gt;</div><div class="line">      &lt;div&gt;测试：&lt;/div&gt;</div><div class="line">      &lt;div&gt;&#123;&#123;obj&#125;&#125;&lt;/div&gt;</div><div class="line">  &lt;!--     &lt;div&gt;&#123;&#123;myArray.someProperty&#125;&#125;&lt;/div&gt; --&gt;</div><div class="line">  &lt;/div&gt;</div><div class="line">&lt;/div&gt;</div></pre></td></tr></table></figure></p>
+<p>js<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div></pre></td><td class="code"><pre><div class="line">var app = angular.module(&apos;myApp&apos;, []);</div><div class="line">app.controller(&apos;watchController&apos;, function($scope,$timeout) &#123;</div><div class="line">  $scope.obj = &#123;</div><div class="line">      &quot;status&quot;: 200,</div><div class="line">      &quot;success&quot;: true,</div><div class="line">      &quot;message&quot;: &quot;请求成功&quot;,</div><div class="line">      &quot;data&quot;: [</div><div class="line">        &#123;</div><div class="line">          &quot;id&quot;: &quot;10301&quot;,</div><div class="line">      		&quot;describe&quot;: &quot;一&quot;,</div><div class="line">        &#125;,</div><div class="line">        &#123;</div><div class="line">         	&quot;id&quot;: &quot;10302&quot;,</div><div class="line">      		&quot;describe&quot;: &quot;二&quot;,</div><div class="line">        &#125;</div><div class="line">      ]</div><div class="line">  &#125;;</div><div class="line"></div><div class="line">  $scope.$watch(&quot;obj&quot;,function(newVal,oldVal)&#123;</div><div class="line">  		alert(&quot;changed1!&quot;);</div><div class="line">  &#125;);</div><div class="line">  $scope.$watch(&apos;obj&apos;, function () &#123;</div><div class="line">        alert(&quot;changed2!&quot;);</div><div class="line">    &#125;, true);</div><div class="line"></div><div class="line">  $scope.$watchCollection(&apos;obj&apos;, function (newVal, oldVal) &#123;</div><div class="line"> 		alert(&quot;changed3!&quot;);</div><div class="line">  &#125;);</div><div class="line">    </div><div class="line">  //点击触发</div><div class="line">  	$scope.changeDeep = function () &#123;</div><div class="line">     $scope.obj=&#123;</div><div class="line">     &quot;status&quot;: 500,</div><div class="line">      &quot;success&quot;: false,</div><div class="line">      &quot;message&quot;: &quot;请求失败&quot;,</div><div class="line">      &quot;data&quot;: []</div><div class="line">     &#125;//alert(&quot;changed1!&quot;)//alert(&quot;changed2!&quot;)//alert(&quot;changed3!&quot;);三种情况全部触发</div><div class="line">     //$scope.obj.success=false;//alert(&quot;changed2!&quot;)//alert(&quot;changed3!&quot;);只触发$watchCollection、$watch(..., true)</div><div class="line">     //$scope.obj.data[0].describe =&quot;插入1&quot;//alert(&quot;changed2!&quot;);只触发$watch(..., true)</div><div class="line">    &#125;</div><div class="line">&#125;)</div></pre></td></tr></table></figure></p>
+</blockquote>
+
+  </article>
+  <div class="random-toc-area">
+  <button class="btn-hide-toc btn-hide-toc-show" style="display: none" onclick="TOCToggle()">显示目录</button>
+  <button class="btn-hide-toc btn-hide-toc-hide" onclick="TOCToggle()">隐藏目录</button>
+  <div class="random-toc">
+    <h2>目录</h2>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#概述"><span class="toc-text">概述</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#区别"><span class="toc-text">区别</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#举个例子：链接"><span class="toc-text">举个例子：链接</span></a></li></ol></li></ol></li></ol>
+  </div>
+</div>
+
+  
+<nav id="pagination">
+  
+
+  
+
+  
+</nav>
+
+  <!-- JiaThis Button BEGIN -->
+
+<!-- JiaThis Button END -->
+
+
+      
+      
+    </div>
+  </div>
+
+  <div id="bottom-outer">
+    <div id="bottom-inner">
+      Site by Jackie Xu using
+      <a href="http://hexo.io">Hexo</a> & <a href="https://github.com/stiekel/hexo-theme-random">Random</a>
+      <br>
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+
+<div id="user-card">
+  <div class="center-field">
+    <img class="avatar" src="http://oriwxj5ce.bkt.clouddn.com/1BD4199E0531C151DDEC75722E3726CB.png">
+    <p id="description"></p>
+    <ul class="social-icon">
+  
+  
+    <li>
+      <a href="https://github.com/JackieXu92">
+        
+          <i class="icon iconfont github">&#xe606;</i>
+        
+      </a>
+    </li>
+  
+</ul>
+  </div>
+</div>
+
+
+<script>
+// is trigger analytics / tongji script
+var isIgnoreHost = false;
+
+if(window && window.location && window.location.host) {
+  isIgnoreHost = ["localhost","127.0.0.1"].some(function(address){
+    return 0 === window.location.host.indexOf(address);
+  });
+}
+
+var isTriggerAnalytics = !( true && isIgnoreHost );
+
+</script>
+
+
+
+
+  
+  
+    <script src="/js/jquery-2.2.3.min.js"></script>
+  
+    <script src="/js/vegas.min.js"></script>
+  
+    <script src="/js/random.js"></script>
+  
+    <script src="/js/highlight.pack.js"></script>
+  
+    <script src="/js/jquery.mousewheel.pack.js"></script>
+  
+    <script src="/js/jquery.fancybox.pack.js"></script>
+  
+    <script src="/js/jquery.fancybox-thumbs.js"></script>
+  
+    <script src="/js/plyr.js"></script>
+  
+
+<script>
+
+  // fancybox
+  var backgroundImages = [];
+  
+  $('#post').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox') || $(this).parent().hasClass('fancybox-thumb')) return;
+      var alt = this.alt || this.title;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'post' + i);
+    });
+  });
+  $(".fancybox").fancybox();
+
+var vegasConfig = {"preload­Image":true,"transition":["slideLeft2","slideRight2","flash2"],"timer":true,"delay":5000,"shuffle":true,"count":28};
+var unsplashConfig = {"gravity":"north"};
+// is show background images
+var turnoffBackgroundImage = false;
+
+
+
+  turnoffBackgroundImage = true;
+
+
+var backgroundColor = "34495E";
+
+$(".fancybox-thumb").fancybox({
+  prevEffect: 'none',
+  nextEffect: 'none',
+  helpers: {
+    title: {
+      type: 'outside'
+    },
+    thumbs: {
+      width: 50,
+      height: 50
+    }
+  }
+});
+
+// show video with plyr
+$(".video-container iframe").each(function(i){
+  var url = $(this).attr('src');
+  var id = url.split('/').pop();
+  var plyrContainer = document.createElement('div');
+  plyrContainer.className = 'plyr';
+  var plyrElement = document.createElement('div');
+  plyrElement.dataset.videoId = id;
+  switch(true) {
+    case url.search('youtube.com') >= 0:
+      plyrElement.dataset.type = 'youtube';
+      break;
+    case url.search('vimeo.com') >= 0:
+      plyrElement.dataset.type = 'vimeo';
+      break;
+    default:
+      return;
+  };
+  plyrContainer.appendChild(plyrElement);
+  $(this).parent().html(plyrContainer);
+});
+plyr.setup('.plyr', {iconUrl: '/css/sprite.svg'});
+</script>
+</body>
+</html>
+
