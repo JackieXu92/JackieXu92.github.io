@@ -157,8 +157,11 @@
 </li>
 </ul>
 </li>
-<li><p>$watch(…, true) 会被以上所有条件和以下条件触发:<br>  -需要遍历整个监视对象，然后在每次$degist之前使用angular.copy()将整个对象深复制一遍，然后在运行之后用angular.equal()将前后的对象进行对比。因而性能消耗严重。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$scope.arr[0].someProperty = &quot;someValue&quot;;</div></pre></td></tr></table></figure>
+<li><p>$watch(…, true) 会被以上所有条件和以下条件触发:</p>
+<ul>
+<li>需要遍历整个监视对象，然后在每次$degist之前使用angular.copy()将整个对象深复制一遍，然后在运行之后用angular.equal()将前后的对象进行对比。因而性能消耗严重。<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$scope.arr[0].someProperty = &quot;someValue&quot;;</div></pre></td></tr></table></figure>
+</li>
+</ul>
 </li>
 </ul>
 <h4 id="举个例子：链接"><a href="#举个例子：链接" class="headerlink" title="举个例子：链接"></a>举个例子：<a href="http://jsfiddle.net/wDwrF/28/" target="_blank" rel="external">链接</a></h4><blockquote>
