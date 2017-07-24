@@ -19,8 +19,11 @@
   
   
     <meta name="description" content="概述
-   $watch用于监听模型变化，当你的模型部分发生变化时它会通知你。    $watch(watchExpression, listener, objectEquality);    $watchCollection(watchExpression, listener);   参数的说明：
-- watchExpression：监听的对象，它可以是一个angular表达式如&apos...">
+   $watch用于监听模型变化，当你的模型部分发生变化时它会通知你。    $watch(watchExpression, listener, objectEquality);    $watchCollection(watchExpression, listener);
+
+参数的说明：
+
+watchExpression：监听的对象，它可以是一个angular表达式如’name’,...">
   
   <title>angularJs中$watch、$watchCollection的区别 [ Jackie Xu ]</title>
   
@@ -110,7 +113,7 @@
     <p class="page-title-sub">
       <span id = "post-title-date">撰写于 2017-07-18</span>
       
-        <span id = "post-title-updated">修改于 2017-07-19</span>
+        <span id = "post-title-updated">修改于 2017-07-24</span>
       
       
       <span id = "post-title-categories">分类
@@ -148,11 +151,14 @@
     </p>
     
     <h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><blockquote>
-<p>   $watch用于监听模型变化，当你的模型部分发生变化时它会通知你。<br>    $watch(watchExpression, listener, objectEquality);<br>    $watchCollection(watchExpression, listener);<br>   <strong>参数的说明：</strong></p>
-<pre><code>- watchExpression：监听的对象，它可以是一个angular表达式如&apos;name&apos;,或函数如function(){return $scope.name}。    
-- listener:当watchExpression变化时会被调用的函数或者表达式,它接收3个参数：newValue(新值), oldValue(旧值), scope(作用域的引用) 
-- objectEquality：是否深度监听，如果设置为true,它告诉Angular检查所监控的对象中每一个属性的变化. 如果你希望监控数组的个别元素或者对象的属性而不是一个普通的值, 那么应该设置为true(默认为false)
-</code></pre></blockquote>
+<p>   $watch用于监听模型变化，当你的模型部分发生变化时它会通知你。<br>    $watch(watchExpression, listener, objectEquality);<br>    $watchCollection(watchExpression, listener);</p>
+</blockquote>
+<p>参数的说明：</p>
+<ul>
+<li>watchExpression：监听的对象，它可以是一个angular表达式如’name’,或函数如function(){return $scope.name}。    </li>
+<li>listener:当watchExpression变化时会被调用的函数或者表达式,它接收3个参数：newValue(新值), oldValue(旧值), scope(作用域的引用) </li>
+<li>objectEquality：是否深度监听，如果设置为true,它告诉Angular检查所监控的对象中每一个属性的变化. 如果你希望监控数组的个别元素或者对象的属性而不是一个普通的值, 那么应该设置为true(默认为false)</li>
+</ul>
 <h2 id="区别"><a href="#区别" class="headerlink" title="区别"></a>区别</h2><ul>
 <li><p>$watch() 会被触发的条件:</p>
 <ul>
