@@ -19,11 +19,15 @@
   
   
     <meta name="description" content="概述
-   $watch用于监听模型变化，当你的模型部分发生变化时它会通知你。    $watch(watchExpression, listener, objectEquality);    $watchCollection(watchExpression, listener);
+
+$watch用于监听模型变化，当你的模型部分发生变化时它会通知你。
+$watch(watchExpression, listener, objectEquality);
+$watchCollection(watchExpression, listener);
+
 
 参数的说明：
 
-watchExpression：监听的对象，它可以是一个angular表达式如’name’,...">
+watchExpression：监听的对象，它可以是一个angular表达式如’name’,或函数如fun...">
   
   <title>angularJs中$watch、$watchCollection的区别 [ Jackie Xu ]</title>
   
@@ -43,6 +47,15 @@ watchExpression：监听的对象，它可以是一个angular表达式如’name
 
 <body>
 <div class="side-navigate hide-area">
+  
+    <div class="item prev">
+      <a href="/2017/08/07/20170807/">
+        <div class="item-icon"></div>
+      </a>
+      <div class="item-title">
+        angular-cli 安装完成后运行报错
+      </div>
+    </div>
   
   
 </div>
@@ -113,7 +126,7 @@ watchExpression：监听的对象，它可以是一个angular表达式如’name
     <p class="page-title-sub">
       <span id = "post-title-date">撰写于 2017-07-18</span>
       
-        <span id = "post-title-updated">修改于 2017-07-24</span>
+        <span id = "post-title-updated">修改于 2017-08-07</span>
       
       
       <span id = "post-title-categories">分类
@@ -151,7 +164,11 @@ watchExpression：监听的对象，它可以是一个angular表达式如’name
     </p>
     
     <h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><blockquote>
-<p>   $watch用于监听模型变化，当你的模型部分发生变化时它会通知你。<br>    $watch(watchExpression, listener, objectEquality);<br>    $watchCollection(watchExpression, listener);</p>
+<ul>
+<li>$watch用于监听模型变化，当你的模型部分发生变化时它会通知你。</li>
+<li>$watch(watchExpression, listener, objectEquality);</li>
+<li>$watchCollection(watchExpression, listener);</li>
+</ul>
 </blockquote>
 <p>参数的说明：</p>
 <ul>
@@ -197,6 +214,8 @@ watchExpression：监听的对象，它可以是一个angular表达式如’name
 
   
 <nav id="pagination">
+  
+    <a href="/2017/08/07/20170807/" class="prev">&larr; 上一篇 angular-cli 安装完成后运行报错</a>
   
 
   
